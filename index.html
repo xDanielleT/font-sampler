@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jquery Font Sampler</title>
+
+    <!-- jQuery library from CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <style media="screen">
+      /* Apply box-sizing to all elements for consistent layout */
+      * {
+        box-sizing: border-box;
+      }
+      
+      /* Reset default margins and ensure full height */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      
+      /* Main body styling with background image */
+      body {
+        text-align: center;
+        background-color: aliceblue;
+        background-size: cover;
+        background-attachment: fixed; /* Keep background fixed when scrolling */
+        background-position: center;
+        padding: 20px;
+        padding-top: 80px; /* Space from top of page */
+        padding-bottom: 60px; /* Space for footer */
+        font-family: Arial, sans-serif;
+      }
+
+      /* Container for the font sampler content */
+      .content-container {
+        max-width: 90%;
+        width: 800px;
+        margin: 0 auto; /* Center the container */
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+
+      /* Font declarations */
+      @font-face{
+        font-family: pixel3;
+        src: url(fonts/pixel3.ttf);
+      }
+
+      .pixel3{
+        font-family: pixel3;
+      }
+
+      @font-face{
+        font-family: spacetime;
+        src: url(fonts/spacetime-regular.ttf);
+      }
+
+      .spacetime{
+        font-family: spacetime;
+      }
+
+      @font-face{
+        font-family: superMilk;
+        src: url(fonts/superMilk.ttf);
+      }
+
+      .superMilk{
+        font-family: superMilk;
+      }
+
+      @font-face{
+        font-family: theCalifornia;
+        src: url(fonts/theCalifornia.ttf);
+      }
+
+      .theCalifornia{
+        font-family: theCalifornia;
+      }
+
+      @font-face{
+        font-family: valoon;
+        src: url(fonts/valoon.ttf);
+      }
+
+      .valoon{
+        font-family: valoon;
+      }
+
+      /* Fixed footer at bottom of page */
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        color: #000;
+        padding: 10px;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.7);
+      }
+
+      h1 {
+        margin-top: 0;
+        font-size: 2.5rem;
+      }
+
+      /* Font sample styling with word wrapping for long text */
+      .sample {
+        margin: 20px 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+
+      /* Form input styling */
+      input[type="text"], select {
+        width: 100%;
+        max-width: 300px;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+
+      /* Color picker styling */
+      input[type="color"] {
+        width: 80px;
+        height: 40px;
+        padding: 2px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+      }
+
+      /* Media Queries for Responsiveness */
+      /* Tablet and smaller desktop sizes */
+      @media screen and (max-width: 768px) {
+        body {
+          padding-top: 40px;
+        }
+        
+        .content-container {
+          padding: 20px;
+          width: 95%;
+        }
+        
+        h1 {
+          font-size: 2rem;
+        }
+      }
+
+      /* Mobile phone sizes */
+      @media screen and (max-width: 480px) {
+        body {
+          padding-top: 20px;
+        }
+        
+        .content-container {
+          padding: 15px;
+          width: 100%;
+        }
+        
+        h1 {
+          font-size: 1.8rem;
+        }
+        
+        .sample {
+          font-size: 1.5rem !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Main content container -->
+    <div class="content-container">
+      <h1>Font Sampler</h1>
+
+      <!-- Text input field -->
+      <p>
+        <label for="sampleTxt">Text for Entry: </label><br>
+        <input type="text" id="sampleTxt" placeholder="Enter some text! ">
+      </p>
+
+      <!-- Font size dropdown -->
+      <p>
+        <label for="fontSize">Font Size: </label><br>
+        <select id="fontSize" >
+          <option value=""></option>
+          <option value="15px">15px</option>
+          <option value="20px">20px</option>
+          <option value="25px">25px</option>
+          <option value="30px">30px</option>
+          <option value="40px">40px</option>
+        </select>
+      </p>
+
+      <!-- Color picker -->
+      <p>
+        <label for="fontColor">Color: </label><br>
+        <input type="color" id="fontColor">
+      </p>
+
+      <!-- Font samples container -->
+      <div class="samples-container">
+        <h2 class="sample pixel3">pixel3</h2>
+        <h2 class="sample spacetime">spacetime</h2>
+        <h2 class="sample superMilk">superMilk</h2>
+        <h2 class="sample theCalifornia">theCalifornia</h2>
+        <h2 class="sample valoon">valoon</h2>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      // jQuery document ready function - runs when page is fully loaded
+      $(function() {
+        // Event handler for text input keyup
+        $("#sampleTxt").keyup(function(){
+          var text = $("#sampleTxt").val();
+          if(text === "") {
+            // Reset to font names if input is empty
+            $(".pixel3").html("pixel3");
+            $(".spacetime").html("spacetime");
+            $(".superMilk").html("superMilk");
+            $(".theCalifornia").html("theCalifornia");
+            $(".valoon").html("valoon");
+          } else {
+            // Update all sample text with input value
+            $(".sample").html(text);
+          }
+        });
+
+        // Event handler for font size change
+        $("#fontSize").change(function(){
+          var size = $("#fontSize").val();
+          if(size) {
+            // Apply selected font size to all samples
+            $(".sample").css({"font-size": size});
+          }
+        });
+
+        // Event handler for color picker
+        $("#fontColor").on("input", function(){
+          var color = $("#fontColor").val();
+          // Apply selected color to all samples
+          $(".sample").css({"color": color});
+        });
+      });
+    </script>
+  </body>
+
+  <footer>Created by: Danielle</footer>
+</html>
