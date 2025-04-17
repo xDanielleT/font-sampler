@@ -12,6 +12,8 @@ A responsive web application that allows users to sample different custom fonts 
 ## Screenshot
 ![Screenshot of jQuery font sampler](https://i.imgur.com/Rhcs5Ug.png)
 
+## Live Demo 
+Check out the live demo: [jQuery Font Sampler](https://xdaniellet.github.io/font-sampler/)
 
 ## How to Run
 1. Download or clone the repository
